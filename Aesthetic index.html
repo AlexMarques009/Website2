@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Aesthetics | Facial Clinic</title>
+    
+    <!-- Fonts: Playfair Display (Elegant) & Inter (Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#b08d87', /* Muted Rose Gold */
+                        secondary: '#f9f5f4', /* Very light warm gray/white */
+                        dark: '#2c2c2c',
+                        accent: '#d4b0aa',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Hero Image Overlay Gradient */
+        .hero-overlay {
+            background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+        }
+
+        @media (max-width: 768px) {
+            .hero-overlay {
+                background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 100%);
+            }
+        }
+
+        /* Tab Transitions */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-600 antialiased bg-secondary">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-serif text-2xl font-semibold text-primary tracking-wide">LUMINA</span>
+                    <span class="font-sans text-xs tracking-[0.2em] ml-2 text-slate-400 uppercase mt-1">Aesthetics</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#about" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#treatments" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors relative group">
+                        Treatments
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#team" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors relative group">
+                        Team
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#contact" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors relative group">
+                        Contact
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-rose-50 rounded-md">Home</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-rose-50 rounded-md">About</a>
+                <a href="#treatments" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-rose-50 rounded-md">Treatments</a>
+                <a href="#team" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-rose-50 rounded-md">Team</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-rose-50 rounded-md">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative h-screen min-h-[600px] flex items-center">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                 alt="Woman with glowing skin" 
+                 class="w-full h-full object-cover object-top">
+        </div>
+        
+        <!-- Overlay -->
+        <div class="absolute inset-0 z-10 hero-overlay"></div>
+
+        <!-- Content -->
+        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="max-w-xl animate-fade-in-up">
+                <p class="text-primary font-medium tracking-widest uppercase text-sm mb-4">Science Meets Artistry</p>
+                <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl text-dark leading-tight mb-6">
+                    Reveal Your <br>
+                    <span class="italic text-primary">Natural</span> Radiance
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed">
+                    Experience world-class facial aesthetics in a sanctuary designed for your comfort, safety, and confidence.
+                </p>
+                <div class="flex items-center space-x-4">
+                    <a href="#treatments" class="inline-block bg-primary text-white px-8 py-3 rounded-sm font-medium tracking-wide hover:bg-slate-800 transition-colors duration-300 shadow-lg">
+                        Explore Treatments
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-20 md:py-32 bg-white fade-in-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Image Grid -->
+                <div class="relative">
+                    <div class="aspect-w-4 aspect-h-5 rounded-lg overflow-hidden shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80" alt="Clinic Interior" class="object-cover w-full h-full hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-secondary rounded-lg -z-10 hidden md:block"></div>
+                    <div class="absolute -top-8 -left-8 w-48 h-48 bg-primary/20 rounded-lg -z-10 hidden md:block"></div>
+                </div>
+
+                <!-- Text Content -->
+                <div>
+                    <h2 class="font-serif text-3xl md:text-4xl text-dark mb-6">Refining Beauty with Integrity & Precision</h2>
+                    <div class="w-16 h-1 bg-primary mb-8"></div>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        At Lumina Aesthetics, we believe that aesthetic treatments should whisper, not shout. Our philosophy is rooted in enhancing your unique features while maintaining a completely natural appearance.
+                    </p>
+                    <p class="text-slate-600 mb-8 leading-relaxed">
+                        Led by a team of medical professionals, we prioritize safety and ethics above all else. Every consultation is a dialogue, ensuring that your treatment plan is tailored specifically to your anatomy and goals.
+                    </p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-center text-slate-700">
+                            <span class="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                            Medical-Grade Safety Standards
+                        </li>
+                        <li class="flex items-center text-slate-700">
+                            <span class="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                            Personalized Treatment Plans
+                        </li>
+                        <li class="flex items-center text-slate-700">
+                            <span class="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                            Natural-Looking Results
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TREATMENTS SECTION (TABS) -->
+    <section id="treatments" class="py-20 bg-secondary fade-in-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-primary font-medium tracking-widest uppercase text-sm">Our Expertise</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-dark mt-3">Curated Aesthetic Treatments</h2>
+                <p class="mt-4 text-slate-500">Select a category to learn more about our procedures.</p>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button onclick="openTab(event, 'injectables')" class="tab-btn active px-6 py-3 rounded-full text-sm font-medium tracking-wide border border-transparent transition-all duration-300 bg-white text-primary shadow-sm hover:shadow-md ring-2 ring-primary">
+                    Injectables
+                </button>
+                <button onclick="openTab(event, 'skin')" class="tab-btn px-6 py-3 rounded-full text-sm font-medium tracking-wide border border-slate-200 bg-white text-slate-600 hover:border-primary hover:text-primary transition-all duration-300">
+                    Skin Rejuvenation
+                </button>
+                <button onclick="openTab(event, 'facials')" class="tab-btn px-6 py-3 rounded-full text-sm font-medium tracking-wide border border-slate-200 bg-white text-slate-600 hover:border-primary hover:text-primary transition-all duration-300">
+                    Medical Facials
+                </button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 min-h-[400px]">
+                
+                <!-- Tab 1: Injectables -->
+                <div id="injectables" class="tab-content active">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="font-serif text-2xl text-dark mb-4">Anti-Wrinkle & Dermal Fillers</h3>
+                            <p class="text-slate-600 mb-6 leading-relaxed">
+                                Restore volume and smooth fine lines with our premium range of FDA-approved injectables. Our approach focuses on micro-adjustments that refresh your appearance without altering your expression.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-secondary p-4 rounded-lg">
+                                    <h4 class="font-serif text-lg text-dark mb-2">Anti-Wrinkle</h4>
+                                    <p class="text-sm text-slate-500">Softens dynamic lines on the forehead and eyes for a rested look.</p>
+                                </div>
+                                <div class="bg-secondary p-4 rounded-lg">
+                                    <h4 class="font-serif text-lg text-dark mb-2">Lip Enhancement</h4>
+                                    <p class="text-sm text-slate-500">Subtle hydration and definition to restore natural fullness.</p>
+                                </div>
+                                <div class="bg-secondary p-4 rounded-lg">
+                                    <h4 class="font-serif text-lg text-dark mb-2">Cheek Contouring</h4>
+                                    <p class="text-sm text-slate-500">Restores lost structural volume to lift and support the mid-face.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-lg h-80">
+                            <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Injectables treatment" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Skin Rejuvenation -->
+                <div id="skin" class="tab-content">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="font-serif text-2xl text-dark mb-4">Advanced Skin Rejuvenation</h3>
+                            <p class="text-slate-600 mb-6 leading-relaxed">
+                                Go beyond the surface. Our clinical skin treatments stimulate collagen production and cellular renewal to improve texture, tone, and firmness.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <i class="fas fa-check text-primary mt-1 mr-3"></i>
+                                    <div>
+                                        <h4 class="font-medium text-dark">Microneedling</h4>
+                                        <p class="text-sm text-slate-500 mt-1">Stimulates natural collagen for scarring and texture issues.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-check text-primary mt-1 mr-3"></i>
+                                    <div>
+                                        <h4 class="font-medium text-dark">Chemical Peels</h4>
+                                        <p class="text-sm text-slate-500 mt-1">Exfoliates dead skin cells to reveal brighter, clearer skin.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-lg h-80">
+                            <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Skin treatment" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Facials -->
+                <div id="facials" class="tab-content">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="font-serif text-2xl text-dark mb-4">Luxury Medical Facials</h3>
+                            <p class="text-slate-600 mb-6 leading-relaxed">
+                                The perfect bridge between a relaxing spa day and clinical results. Our medical facials cleanse, hydrate, and nourish deeply.
+                            </p>
+                            <ul class="list-disc pl-5 space-y-2 text-slate-600">
+                                <li>Deep Pore Cleansing</li>
+                                <li>LED Light Therapy</li>
+                                <li>Lymphatic Drainage Massage</li>
+                                <li>Customized Serums</li>
+                            </ul>
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-lg h-80">
+                            <!-- UPDATED IMAGE -->
+                            <img src="https://images.unsplash.com/photo-1519415387722-a1c3bbef716c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Facial treatment" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM SECTION -->
+    <section id="team" class="py-20 bg-white fade-in-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-primary font-medium tracking-widest uppercase text-sm">Specialists</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-dark mt-3">Meet Your Practitioners</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="group">
+                    <div class="relative overflow-hidden rounded-lg mb-4">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dr. Sarah Thorne" class="w-full h-96 object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <h3 class="font-serif text-xl text-dark">Dr. Sarah Thorne</h3>
+                    <p class="text-primary text-sm font-medium uppercase tracking-wide mb-2">Medical Director</p>
+                    <p class="text-slate-500 text-sm">With over 15 years in aesthetic medicine, Dr. Thorne specializes in full-face harmonization.</p>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="group">
+                    <div class="relative overflow-hidden rounded-lg mb-4">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nurse James Lin" class="w-full h-96 object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <h3 class="font-serif text-xl text-dark">James Lin</h3>
+                    <p class="text-primary text-sm font-medium uppercase tracking-wide mb-2">Aesthetic Nurse Practitioner</p>
+                    <p class="text-slate-500 text-sm">Expert in skincare science and advanced laser technologies for pigmentation.</p>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="group">
+                    <div class="relative overflow-hidden rounded-lg mb-4">
+                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Elena Ricci" class="w-full h-96 object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <h3 class="font-serif text-xl text-dark">Elena Ricci</h3>
+                    <p class="text-primary text-sm font-medium uppercase tracking-wide mb-2">Senior Dermal Therapist</p>
+                    <p class="text-slate-500 text-sm">Passionate about skin health, Elena creates bespoke treatment plans for radiant skin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & LOCATION -->
+    <section id="contact" class="bg-secondary py-20 fade-in-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row">
+                <!-- Contact Info -->
+                <div class="p-10 md:w-1/3 flex flex-col justify-center">
+                    <h2 class="font-serif text-3xl text-dark mb-6">Visit Us</h2>
+                    <p class="text-slate-600 mb-8">We welcome you to our clinic for a consultation to discuss your aesthetic goals.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center text-primary mr-4 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-dark">Address</h4>
+                                <p class="text-slate-500 text-sm">123 Wellness Blvd, Suite 400<br>Beverly Hills, CA 90210</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center text-primary mr-4 flex-shrink-0">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-dark">Phone</h4>
+                                <!-- Non-clickable phone number as requested -->
+                                <span class="text-slate-500 text-sm font-mono">+1 (310) 555-0123</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center text-primary mr-4 flex-shrink-0">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-dark">Email</h4>
+                                <!-- Non-clickable email as requested -->
+                                <span class="text-slate-500 text-sm font-mono">hello@luminaaesthetics.com</span>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-6 border-t border-gray-100">
+                            <h4 class="font-medium text-dark mb-2">Opening Hours</h4>
+                            <div class="text-sm text-slate-500 grid grid-cols-2 gap-2">
+                                <span>Mon - Fri:</span>
+                                <span>9:00 AM - 6:00 PM</span>
+                                <span>Saturday:</span>
+                                <span>10:00 AM - 4:00 PM</span>
+                                <span>Sunday:</span>
+                                <span>Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="md:w-2/3 h-96 md:h-auto bg-gray-200">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.715220364958!2d-118.4003563236081!3d34.06737097316047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bc04d6d147cf%3A0x2948c7183262961d!2sBeverly%20Hills%2C%20CA%2090210!5e0!3m2!1sen!2sus!4v1709228471234!5m2!1sen!2sus" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="grayscale hover:grayscale-0 transition-all duration-500">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <span class="font-serif text-2xl font-semibold tracking-wide">LUMINA</span>
+                    <p class="text-gray-400 mt-4 max-w-sm text-sm leading-relaxed">
+                        Dedicated to enhancing natural beauty through safe, ethical, and advanced aesthetic treatments. Your confidence is our masterpiece.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-serif mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#home" class="hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
+                        <li><a href="#treatments" class="hover:text-primary transition-colors">Treatments</a></li>
+                        <li><a href="#team" class="hover:text-primary transition-colors">Team</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 Lumina Aesthetics Clinic. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <!-- CHANGED TO NON-CLICKABLE PLAIN TEXT -->
+                    <span class="cursor-default">Privacy Policy</span>
+                    <span class="cursor-default">Terms of Service</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // 2. Tabs Logic
+        function openTab(evt, tabName) {
+            // Hide all tab contents
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+                tabContents[i].style.display = "none";
+            }
+
+            // Remove active class from all buttons
+            const tabLinks = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabLinks.length; i++) {
+                tabLinks[i].classList.remove("ring-2", "ring-primary", "text-primary", "shadow-sm", "hover:shadow-md");
+                // Reset to default inactive style
+                tabLinks[i].classList.add("border-slate-200", "text-slate-600"); 
+            }
+
+            // Show current tab
+            const activeTab = document.getElementById(tabName);
+            activeTab.style.display = "block";
+            // Small timeout to allow display:block to render before adding opacity class for animation
+            setTimeout(() => {
+                activeTab.classList.add("active");
+            }, 10);
+
+            // Add active class to clicked button
+            evt.currentTarget.classList.remove("border-slate-200", "text-slate-600");
+            evt.currentTarget.classList.add("ring-2", "ring-primary", "text-primary", "shadow-sm", "hover:shadow-md");
+        }
+
+        // Initialize first tab
+        document.addEventListener('DOMContentLoaded', () => {
+            // Manual trigger for first tab just to be safe, though HTML handles it
+            const firstTab = document.getElementById('injectables');
+            if(firstTab) firstTab.style.display = "block";
+        });
+
+
+        // 3. Scroll Animations (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
